@@ -1,0 +1,2 @@
+# MysqlPrivilege
+个人开发的基本权限的mysql权限分配系统
