@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>用户登录界面</title>
+<link rel="stylesheet" href="/static/login/css/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/login/css/style.css">
+</head>
+<body>
+
+<div class="materialContainer">
+	<div class="box">
+        <form id="loginform" action="/index/checklogin" method="post">
+            <div class="title">登录</div>
+            <div class="input">
+                <label for="name">用户名</label>
+                <input type="text" name="name" id="name">
+                <span class="spin"></span>
+            </div>
+            <div class="input">
+                <label for="pass">密码</label>
+                <input type="password" name="pass" id="pass">
+                <span class="spin"></span>
+            </div>
+            <div class="button login">
+                <button id="login" type="submit">
+                    <span>登录</span>
+                    <i class="fa fa-check"></i>
+                </button>
+            </div>
+        </form>
+	</div>
+
+</div>
+
+<script src="/static/login/js/jquery.min.js"></script>
+<script src="/static/login/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" style="margin:0 auto; padding:0;height:100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>权限配置</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.edatagrid.js"></script>
+</head>
+<body style="margin:0px;padding: 0px;border: 0;min-width: 1100px;box-sizing: border-box;font-size: 14px;">
+<div id="container" style="width: 99.5%;height: 588px;overflow: hidden;">
+	<div id="top" style="width:100%;height:50%;float:left;">
+		<table id="dg" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+	</div>
+	<div id="buttom" style="width:100%;height:50%;float:left">
+		<div id="bleft" style="width:20%;height:100%;float:left">
+			<table id="db" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+		</div>
+		<div id="bright" style="width:80%;height:100%;float:left">
+			<table id="table" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+		</div>
+	</div>
+	<div id="dialog">
+		<div id="applyorder" style="display: none;">
+	        <form id="orderform" action="#" method="post">
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>数据库:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="targetDb" name="targetDb" readonly>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:70px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>SQL指令:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+						<textarea cols="1" rows="4" name="sql" id="sql" style="width:100%;height:70%"></textarea>
+						<font color="red" style="font-size:xx-small">每条sql语句末尾记得加分隔号;</font>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+					<input type="hidden" id="targethost" name="targethost" >
+					<input type="hidden" id="targetuser" name="targetuser" >
+					<input type="hidden" id="targetpwd" name="targetpwd" >
+					<input type="hidden" id="targetport" name="targetport" >
+					<input type="hidden" id="targetDbName" name="targetDbName" >
+	                <input type="button" id="orderapply" value="申请">
+	                <input type="button" id="orderdialogclose" value="关闭">
+	            </div>
+
+	        </form>
+    	</div>
+	</div>
+</div>
+<script type="text/javascript" src="/static/userpermision.js"></script>
+</body>
+</html>

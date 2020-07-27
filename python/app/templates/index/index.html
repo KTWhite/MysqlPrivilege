@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户首页</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+            function openTab(text, url, iconCls) {
+                if($("#tabs").tabs("exists", text)) {
+                    //如果已经存在，则使之处于选中的状态
+                    $("#tabs").tabs("select", text);
+                } else {
+                    //如果不存在则新增加一个
+                    var content = "<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='" + url + "'></iframe>";
+                    $("#tabs").tabs("add", {
+                        title: text, //标题
+                        iconCls: iconCls, //图标
+                        closable: true, //可以关闭
+                        content: content //内容，内嵌一个 iframe！
+                    });
+                }
+            }
+            function sysout(){
+                window.location.href="/index/sysout"
+            }
+        </script>
+    <style type="text/css">
+         #tabs .tabs-panels>.panel>.panel-body {
+            overflow: hidden;
+          }
+    </style>
+</head>
+<body class="easyui-layout" >
+        <div id="tab-tools">
+            <a href="#" class="easyui-linkbutton" plain="true" >{{user}}</a>
+            <a href="#" style="color:red;" onclick="sysout()" class="easyui-linkbutton" plain="true">退出系统</a>
+        </div>
+        <div region="center">
+            <div class="easyui-tabs" fit="true" border="false" id="tabs">
+            </div>
+        </div>
+
+        <div region="west" style="width: 180px" title="导航菜单" split="true">
+            <div style="padding-top: 10px;padding-left: 10px;">
+                <a href="javascript:openTab('权限申请','/index/permision')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">权限申请</a>
+            </div>
+            <div style="padding-top: 10px;padding-left: 10px;">
+                <a href="javascript:openTab('申请记录','/index/applyrecord')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">申请记录</a>
+            </div>
+            <div style="padding-top: 10px;padding-left: 10px;">
+                <a href="javascript:openTab('指令申请记录','/index/orderapplyrecord')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">指令申请记录</a>
+            </div>
+
+
+        </div>
+<script>
+    $(function(){
+        $('#tabs').tabs({
+            tools:'#tab-tools'
+        });
+    })
+</script>
+</body>
+</html>

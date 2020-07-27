@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息展示</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+</head>
+<body style="margin:0px;padding: 0px;border: 0;min-width: 1100px;box-sizing: border-box;font-size: 14px;">
+<div id="container" style="width: 99.5%;height: 588px;overflow: hidden;">
+	<div id="top" style="width:100%;height:50%;float:left;">
+		<table id="userlist" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+	</div>
+    <div id="adduser2" style="display: none;">
+    		<form id="userform" action="#" method="post" style="margin-top:20px">
+	            <div style="width:100%;height:26px;">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>用户名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="username" name="username" >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>密码:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password" id="password" name="password">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>真名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="realname"  name="realname">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>邮箱:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="mail" name="mail">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+	               <input type="button" id="uadd" value="添加">
+	                <input type="button" id="uconcel" value="关闭">
+	            </div>
+	        </form>
+    	</div>
+	<div id="editoruser" style="display: none;">
+    		<form id="editorform" action="#" method="post" style="margin-top:30px">
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>用户名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="editroname" name="editroname" readonly >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>密码:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password"  id="editorpwd" name="editorpwd" >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>再次输入密码:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password"  id="editorpwd2" name="editorpwd2" >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+					<input type="text" id="editorid" name="editorid" hidden>
+	               <input type="button" id="editorbtn" value="修改密码">
+	                <input type="button" id="editrocl" value="关闭">
+	            </div>
+	        </form>
+    	</div>
+	<div id="editorinfo" style="display: none;">
+    		<form id="editorinfoform" action="#" method="post" style="margin-top:30px">
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>用户名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="editorname" name="editorname" readonly >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>真名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="editorRealname"  name="editorRealname" >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>邮箱:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text"  id="editoremail" name="editoremail" >
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+					<input type="text" id="editorinfoid" name="editorinfoid" hidden>
+	               <input type="button" id="editorinfobtn" value="修改信息">
+	                <input type="button" id="editroinfocl" value="关闭">
+	            </div>
+	        </form>
+    	</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+    	$('#editrocl').click(function(){
+    		$('#editoruser').dialog('close')
+    	})
+    	$('#uconcel').click(function(){
+    		$('#adduser2').dialog('close')
+    	})
+    	$('#editroinfocl').click(function(){
+    		$('#editorinfo').dialog('close')
+    	})
+
+    	$('#editorinfobtn').click(function(){
+			if($('#editorRealname').val()==""){
+				$.messager.alert('信息提示','真实名称不为空！',"info");
+			}
+			if($('#editoremail').val()==""){
+				$.messager.alert('信息提示','邮箱地址不为空！',"info");
+			}else if($('#editoremail').val()!=""){
+				var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+				if(reg.test($('#editoremail').val())){
+						$.ajax({
+							url:'/sys/editorinfo',
+							dataType:'json',
+							data:$("#editorinfoform").serialize(),
+							type:"POST",
+							success:function(data){
+							   if(data.code==1){
+									$.messager.alert('信息提示','信息修改成功！',"info");
+									$("#editorinfo").dialog('close')
+									$('#userlist').datagrid("reload");
+							   }else if(data.code==2){
+									$.messager.alert('信息提示','系统异常！',"info");
+									$("#editorinfo").dialog('close')
+									$('#userlist').datagrid("reload");
+							   }
+							}
+						})
+				}else{
+					$.messager.alert('信息提示','邮箱格式错误！',"info");
+				}
+			}
+    	})
+
+    	$('#editorbtn').click(function(){
+    		if($("#editorpwd").val()!=$("#editorpwd2").val()){
+    			$.messager.alert('信息提示','密码不一致，请重新输入密码',"info");
+    		}else{
+				$.ajax({
+					url:'/sys/editor',
+					dataType:'json',
+					data:$("#editorform").serialize(),
+					type:"POST",
+					success:function(data){
+					   if(data.code==1){
+							$.messager.alert('信息提示','信息修改成功！',"info");
+							$("#editoruser").dialog('close')
+							$('#userlist').datagrid("reload")
+					   }else if(data.code ==2){
+					   		$.messager.alert('信息提示','源无权限修改密码！',"info");
+					   }else if(data.code ==0){
+					   		$.messager.alert('信息提示','信息修改失败！',"info");
+							$("#editoruser").dialog('close')
+							$('#userlist').datagrid("reload")
+					   }
+					}
+				})
+    		}
+    	})
+
+        //初始加载，表格宽度自适应
+        $(document).ready(function(){
+            fitCoulms();
+        });
+    　　//浏览器窗口大小变化后，表格宽度自适应
+        $(window).resize(function(){
+            fitCoulms();
+        });
+        function fitCoulms(){
+               $('#userlist').datagrid({
+                fitColumns:true
+            });
+        }
+        $('#uadd').click(function(){
+        		if($('#username').val()==""){
+        			$.messager.alert('信息提示','请输入用户名',"info");
+        		}else if($('#password').val()==""){
+        			$.messager.alert('信息提示','请输入密码',"info");
+        		}else if($('#realname').val()==""){
+        			$.messager.alert('信息提示','请输入真实姓名',"info");
+        		}else if($('#mail').val()==""){
+        			$.messager.alert('信息提示','请输入邮箱',"info");
+        		}else if($('#mail').val()!=""){
+        			var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        			if(reg.test($('#mail').val())){
+						$.ajax({
+							url:'/sys/adduser',
+							dataType:'json',
+							data:$("#userform").serialize(),
+							type:"POST",
+							success:function(data){
+							   if(data.code==1){
+									$.messager.alert('信息提示','新用户创建成功！',"info");
+									$("#adduser2").dialog('close')
+									$('#userlist').datagrid("reload");
+							   }else{
+									alert("内容不能为空！")
+									$.messager.alert('信息提示','内容不能为空！',"info");
+									$("#adduser2").dialog('close')
+									$('#userlist').datagrid("reload");
+							   }
+							}
+						})
+        			}else{
+        				$.messager.alert('信息提示','邮箱格式错误！',"info");
+        			}
+
+        		}
+
+        })
+        //数据库表格 加载所有数据库表格信息
+        $('#userlist').datagrid({
+            url:'/sys/userdatas',
+            method:'post',
+            title:'用户权限申请记录表',
+            iconCls:'icon-add,icon-edit,icon-remove',
+            rownumbers:true,
+            fitColumns:true,
+            singleSelect:true,
+            nowrap:false,
+            pageList: [20,40,60,80,100],
+            pageSize:20,
+            pagination : true,
+            height: window.innerHeight,
+            columns:[[
+                    { field: 'check', checkbox: true },
+                    { field: 'uid', title: 'UID', width: 80,align: 'center',hidden:true},
+                    { field: 'name', title: '用户名', width: 40,align: 'center',},
+                    { field: 'password', title: '密码', width: 60,align: 'center'},
+                    { field: 'realname', title: '真实名称', width: 50,align: 'center'},
+                    { field: 'email', title: '电子邮箱', width: 50,align: 'center'},
+                    { field: 'createtime', title: '创建时间', width: 60,align: 'center'},
+            ]],
+            toolbar:[{
+                text:'创建',
+                iconCls:'icon-add',
+                handler:function(){
+                    //一个新的div用于创建新用户的弹窗
+                    $('#adduser2').dialog({
+                      title:'新建用户',
+                      width:400,
+                      height:200,
+                      closed:false,
+                      cache:false,
+                       modal:true,
+                    })
+                }
+                },{
+                text:'密码修改',
+                iconCls:'icon-editor',
+                handler:function(){
+                     var row = $('#userlist').datagrid('getSelected');
+                    if (row) {
+						$('#editoruser').dialog({
+						  title:'修改密码',
+						  width:400,
+						  height:200,
+						  closed:false,
+						  cache:false,
+						   modal:true,
+						   onOpen:function(){
+								$.ajax({
+									url:'/sys/editoruser?id='+row.uid,
+									dataType:'json',
+									success:function(data){
+										$('#editorid').val(data.id)
+										$('#editroname').val(data.name)
+										$('#editorpwd').val(data.password)
+									}
+								})
+						   }
+						})
+                    }else{
+							$.messager.alert('信息提示','请选择数据!',"info");
+                    }
+                }
+            },{
+                text:'个人信息修改',
+                iconCls:'icon-editor',
+                handler:function(){
+                     var row = $('#userlist').datagrid('getSelected');
+                    if (row) {
+						$('#editorinfo').dialog({
+						  title:'修改个人信息',
+						  width:400,
+						  height:200,
+						  closed:false,
+						  cache:false,
+						   modal:true,
+						   onOpen:function(){
+								$.ajax({
+									url:'/sys/editoruser?id='+row.uid,
+									dataType:'json',
+									success:function(data){
+										$('#editorinfoid').val(data.id)
+										$('#editorname').val(data.name)
+										$('#editorRealname').val(data.realname)
+										$('#editoremail').val(data.email)
+									}
+								})
+						   }
+						})
+                    }else{
+							$.messager.alert('信息提示','请选择数据!',"info");
+                    }
+                }
+            },{
+                text:'刷新',
+                iconCls:'icon-reload',
+                handler:function(){
+                    $('#userlist').datagrid("reload")
+                }
+                }],
+        })
+    })
+</script>
+</body>
+</html>

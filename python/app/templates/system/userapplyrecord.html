@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户权限申请记录</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/static/easyui/jquery.edatagrid.js"></script>
+</head>
+<body style="margin:0px;padding: 0px;border: 0;min-width: 1100px;box-sizing: border-box;font-size: 14px;">
+<div id="container" style="width: 99.5%;height: 1100px;overflow: hidden;">
+	<div id="top" style="width:100%;height:60%;float:left;">
+		<table id="record" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+	</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //初始加载，表格宽度自适应
+        $(document).ready(function(){
+            fitCoulms();
+        });
+    　　//浏览器窗口大小变化后，表格宽度自适应
+        $(window).resize(function(){
+            fitCoulms();
+        });
+        function fitCoulms(){
+               $('#record').datagrid({
+                fitColumns:true
+            });
+        }
+        function privilege(){
+            var row = $('#record').datagrid('getSelected');
+            if(row){
+                if(row.status=="待审核"){
+                    $.ajax({
+                        url:'/sys/applyok',
+                        dataType:'json',
+                        data:{'privilege':row.privilege,'db':row.database,'recordid':row.rid,'table':row.table,'ip':row.host,'user':row.uname,'expire':row.expire},
+                        type:"POST",
+                        success:function(data){
+                           if(data.code==1){
+                                $.messager.alert("信息提示","审核通过，已经授权！",'info');
+                                $('#record').datagrid('reload');
+                           }else if(data.code ==2){
+                                $.messager.alert("信息提示","源连接失败！",'info');
+                                $('#record').datagrid('reload');
+                           }else if(data.code == 0){
+                                $.messager.alert("信息提示","审核失败，更新出现异常！",'info');
+                                $('#record').datagrid('reload');
+                           }else if(data.code == 4){
+                                $.messager.alert("信息提示","该源用户并不存在，请先关联源！",'info');
+                                $('#record').datagrid('reload');
+                           }
+                        }
+                    })
+                }else{
+                    $.messager.alert("信息提示","请选择待审核的数据！",'info');
+                }
+
+            }else{
+                $.messager.alert("信息提示","请选择要审核的记录！",'info');
+            }
+        }
+        function applyno(){
+            var row = $('#record').datagrid('getSelected');
+            if(row){
+                if(row.status=="待审核"){
+                        $.ajax({
+                        url:'/sys/applyno',
+                        dataType:'json',
+                        data:{'recordid':row.rid},
+                        type:"POST",
+                        success:function(data){
+                           if(data.code==1){
+                                $.messager.alert("信息提示","操作成功！",'info');
+                                $('#record').datagrid("reload");
+                           }else{
+                                $.messager.alert("信息提示","操作失败！出现bug",'info');
+                                $('#record').datagrid("reload");
+                           }
+                        }
+                    })
+                }else if(row.status=="通过" || row.status=="拒绝"){
+                        $.messager.alert("信息提示","请选择待审核记录",'info');
+                }
+            }else{
+                $.messager.alert("信息提示","请选择要审核的记录！",'info');
+            }
+        }
+        //数据库表格 加载所有数据库表格信息
+        $('#record').edatagrid({
+            url:'/sys/recordlist',
+            method:'post',
+            title:'用户权限申请记录表',
+            iconCls:'icon-add,icon-edit,icon-remove',
+            rownumbers:true,
+            fitColumns:true,
+            singleSelect:true,
+            nowrap:false,
+            pageList: [20,40,60,80,100],
+            pageSize:20,
+            pagination : true,
+            height: window.innerHeight ,
+            columns:[[
+                    { field: 'check', checkbox: true },
+                    { field: 'rid', title: 'RID', width: 80,align: 'center',hidden:true},
+                    { field: 'uname', title: '用户名', width: 40,align: 'center',},
+                    { field: 'dbalias', title: '源别名', width: 50,align: 'center'},
+                    { field: 'database', title: '数据库', width: 50,align: 'center'},
+                    { field: 'table', title: '数据表', width: 50,align: 'center'},
+                    { field: 'host', title: 'Ip地址', width: 60,align: 'center'},
+                    { field: 'privilege', title: '申请权限', width: 200,align: 'center'},
+                    { field: 'createtime', title: '申请时间', width: 60,align: 'center'},
+                    { field: 'status', title: '审核状态', width: 40,align: 'center'},
+                    { field: 'expire', title: '有效期', width: 60,align: 'center'},
+            ]],
+            toolbar:[
+                {text:'通过',iconCls:'icon-ok',handler: function () { privilege(); } },
+                {text:'拒绝',iconCls:'icon-no',handler: function () { applyno(); } },
+                {text:'刷新',iconCls:'icon-reload',handler:function(){ $('#record').datagrid('reload'); }},
+            ]
+        })
+    })
+</script>
+</body>
+</html>

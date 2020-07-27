@@ -1,0 +1,4 @@
+docker项目打包指令：
+docker build -t registry.cn-beijing.aliyuncs.com/pspython/privilegesys:0.04 .
+docker项目推送指令：
+docker push registry.cn-beijing.aliyuncs.com/pspython/privilegesys:0.04

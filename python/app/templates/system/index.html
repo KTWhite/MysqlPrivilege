@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员后台</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+            function openTab(text, url, iconCls) {
+                if($("#tabs").tabs("exists", text)) {
+                    //如果已经存在，则使之处于选中的状态
+                    $("#tabs").tabs("select", text);
+                } else {
+                    //如果不存在则新增加一个
+                    var content = "<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='" + url + "'></iframe>";
+                    $("#tabs").tabs("add", {
+                        title: text, //标题
+                        iconCls: iconCls, //图标
+                        closable: true, //可以关闭
+                        content: content //内容，内嵌一个 iframe！
+                    });
+                }
+            }
+            function sysout(){
+                window.location.href="/sys/sysout"
+            }
+        </script>
+    <style type="text/css">
+         #tabs .tabs-panels>.panel>.panel-body {
+            overflow: hidden;
+          }
+    </style>
+</head>
+<body class="easyui-layout" >
+        <div id="tab-tools">
+            <a href="#" class="easyui-linkbutton" plain="true" >{{root}}</a>
+            <a href="#" style="color:red;" onclick="sysout()" class="easyui-linkbutton" plain="true">退出系统</a>
+        </div>
+        <div region="center">
+            <div class="easyui-tabs" fit="true" border="false" id="tabs">
+            </div>
+
+        </div>
+<!--        <div region="north" style="height: 30px;padding: 5px" align="center">-->
+<!--            <div style="width:20%;height:100%;float:right">-->
+<!--                <div style="width:65%;height:100%;float:left">-->
+<!--                     <label>欢迎 {{root}} 登录系统</label>-->
+<!--                </div>-->
+<!--                <div style="width:35%;height:100%;float:left;display:block">-->
+<!--                    <a href="/sys/sysout" style="display:block;text-decoration:none;width:60px;height:100%;color:red">退出系统</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div region="west" style="width: 180px" title="导航菜单" split="true">
+            <div style="padding-top: 10px;padding-left: 10px;">
+                <a href="javascript:openTab('用户列表','/sys/userdata')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">用户列表</a>
+                <a href="javascript:openTab('mysql权限配置','/sys/permision2')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">mysql权限配置</a>
+                <a href="javascript:openTab('用户权限申请记录','/sys/userapply')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">用户权限申请记录</a>
+                <a href="javascript:openTab('用户指令申请记录','/sys/applysqlPage')" class="easyui-linkbutton" data-options="plain:true" style="width: 150px;">用户指令申请记录</a>
+            </div>
+        </div>
+<script>
+    $(function(){
+        $('#tabs').tabs({
+            tools:'#tab-tools'
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限配置</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.edatagrid.js"></script>
+</head>
+<body style="margin:0px;padding: 0px;border: 0;min-width: 1100px;box-sizing: border-box;font-size: 14px;">
+<div id="container" style="width: 99.5%;height: 800px;overflow: hidden;">
+	<div id="left" style="width: 20%;height: 100%;float: left;">
+		<div id="ltop" style="width: 100%;height: 50%;float: left;">
+			<table id="userdg" class="easyui-datagrid"  style="width: 100%;height: 100%"></table>
+		</div>
+		<div id="lbuttom" style="width: 100%;height: 50%;float: left;">
+			<table id="db" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+		</div>
+	</div>
+	<div id="right" style="width: 80%;height: 100%;float: left;">
+		<div id="rtop" style="width: 100%;height: 50%;">
+			<table id="dg" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+		</div>
+		<div id="rbuttom" style="width: 100%;height: 50%;">
+			<table id="table" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+		</div>
+	</div>
+	<div id="dialog">
+		<!-- 修改源数据-->
+		<div id="dd" style="display: none;">
+	        <form id="editorform" action="#" method="post">
+
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>ip地址：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="edithost" name="edithost"></br>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                     <label>别名：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="editorname" name="editorname"></br>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>用户名</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="editoruser" name="editoruser"></br>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>密码：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password" id="editorpassword" name="editorpassword"></br>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                   <label>端口号：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="editordatabase" name="editordatabase"></br>
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+					<input type="hidden" id="editorid" name="editorid">
+	               <input type="button" id="editors" value="修改">
+	                <input type="button" id="concel2" value="关闭">
+	            </div>
+	        </form>
+	    </div>
+		<!--添加源数据-->
+	    <div id="addsource" style="display: none;">
+	        <form id="addform" action="#" method="post">
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>别名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="addname" name="addname">
+
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>ip地址：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="addhost" name="addhost">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>用户名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="adduser" name="adduser">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>密码：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password" id="addpassword" name="addpassword">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:30%;height:100%;float:left;text-align:right">
+	                    <label>端口号：</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="adddatabase" name="adddatabase">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+					<input type="hidden" id="uid" name="uid" >
+	               <input type="button" id="sadd" value="添加">
+	                <input type="button" id="sconcel" value="关闭">
+	            </div>
+
+	        </form>
+    	</div>
+    	<!--添加用户-->
+    	<div id="adduser2" style="display: none;">
+    		<form id="userform" action="#" method="post">
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>用户名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="username" name="username"  data-options="required:true">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>密码:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="password" id="password" name="password" data-options="required:true">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>真名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="realname" name="realname" data-options="required:true">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>邮箱:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="mail" name="mail" data-options="required:true,validType:'email'">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+	               <input type="button" id="uadd" value="添加">
+	                <input type="button" id="uconcel" value="取消">
+	            </div>
+	        </form>
+    	</div>
+    	<!--添加库信息-->
+    	<div id="addatabase2" style="display: none;">
+    		<form id="dbform" action="#" method="post">
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>库名:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="dbname" name="dbname">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px">
+	                <div style="width:15%;height:100%;float:left">
+	                    <label>库信息:</label>
+	                </div>
+	                <div style="width:60%;height:100%;float:left;">
+	                    <input type="text" id="databases" name="databases">
+	                </div>
+	            </div>
+	            <div style="width:100%;height:26px" align="center">
+	               <input type="button" id="dbadd" value="添加">
+	                <input type="button" id="dbconcel" value="取消">
+	            </div>
+	        </form>
+    	</div>	
+    </div>
+</div>
+<script type="text/javascript" src="/static/permision.js"></script>
+</body>
+</html>

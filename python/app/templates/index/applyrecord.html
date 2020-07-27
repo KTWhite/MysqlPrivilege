@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户申请记录</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/static/easyui/jquery.edatagrid.js"></script>
+</head>
+<body style="margin:0px;padding: 0px;border: 0;min-width: 1100px;box-sizing: border-box;font-size: 14px;">
+<div id="container" style="width: 99.5%;height: 565px;overflow: hidden;">
+	<div id="top" style="width:100%;height:100%;float:left;">
+		<table id="record" class="easyui-datagrid" style="width: 100%;height: 100%" ></table>
+	</div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        //初始加载，表格宽度自适应
+        $(document).ready(function(){
+            fitCoulms();
+        });
+    　　//浏览器窗口大小变化后，表格宽度自适应
+        $(window).resize(function(){
+            fitCoulms();
+        });
+        function fitCoulms(){
+               $('#record').datagrid({
+                fitColumns:true
+            });
+        }
+        //数据库表格 加载所有数据库表格信息
+        $('#record').edatagrid({
+            url:'/index/recordlist',
+            method:'post',
+            title:'用户权限申请记录表',
+            iconCls:'icon-add,icon-edit,icon-remove',
+            fitColumns:true,
+            singleSelect:true,
+            pageList: [20,40,60,80,100,120],
+            pageSize:20,
+            pagination : true,
+            height: window.innerHeight-25,
+            rownumbers:true,
+            columns:[[
+                    { field: 'check', checkbox: true },
+                    { field: 'rid', title: 'RID', width: 80,align: 'center',hidden:true},
+                    { field: 'dbalias', title: '源别名', width: 50,align: 'center'},
+                    { field: 'database', title: '数据库', width: 50,align: 'center'},
+                    { field: 'table', title: '数据表', width: 50,align: 'center'},
+                    { field: 'host', title: 'Ip地址', width: 60,align: 'center'},
+                    { field: 'privilege', title: '申请权限', width: 180,align: 'center'},
+                    { field: 'createtime', title: '申请时间', width: 60,align: 'center'},
+                    { field: 'status', title: '审核状态', width: 40,align: 'center'},
+                    { field: 'expire', title: '有效期', width: 100,align: 'center'},
+            ]],
+        })
+    })
+
+
+
+</script>
+</body>
+</html>
